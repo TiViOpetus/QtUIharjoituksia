@@ -27,7 +27,7 @@
      <string>Opiskelijan etunimi</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="studentFirstNamLlineEdit">
+   <widget class="QLineEdit" name="studentFirstNameLineEdit">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -70,7 +70,7 @@
      <string>Opiskelijan sukunimi</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="studentNumbeLlineEdit">
+   <widget class="QLineEdit" name="studentNumberLineEdit">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -111,7 +111,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 196);</string>
+     <string notr="true">background-color: rgba(255, 255, 196, 128);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -119,12 +119,12 @@
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
     </property>
-    <widget class="QLabel" name="sticketFirstNameLabel">
+    <widget class="QLabel" name="stickerNameLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>101</width>
+       <width>261</width>
        <height>16</height>
       </rect>
      </property>
@@ -133,29 +133,17 @@
        <pointsize>12</pointsize>
       </font>
      </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="sticketLastNameLabel">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>10</y>
-       <width>101</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>Opiskelijan kokonimi</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="stickerStudentNumberLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -166,18 +154,25 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>24</pointsize>
+       <family>Libre Barcode 128</family>
+       <pointsize>48</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+     </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>Viivakoodi</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="printPushButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -191,6 +186,9 @@
       <pointsize>12</pointsize>
      </font>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>Tulosta</string>
     </property>
@@ -202,61 +200,18 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>studentFirstNameLineEdit</tabstop>
+  <tabstop>studentLastNameLineEdit</tabstop>
+  <tabstop>studentNumberLineEdit</tabstop>
+  <tabstop>printPushButton</tabstop>
+ </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>studentFirstNamLlineEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>sticketFirstNameLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>54</x>
-     <y>83</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>54</x>
-     <y>184</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>studentLastNameLineEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>sticketLastNameLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>254</x>
-     <y>75</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>228</x>
-     <y>187</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>studentNumbeLlineEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>label</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>128</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>152</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
