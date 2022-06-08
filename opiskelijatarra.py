@@ -46,10 +46,11 @@ class Ui(QtWidgets.QMainWindow):
         
         # Read initial values from settings file
         self.settingsFile = open('studentSticker.settings', 'r')
-        self.settings = json.load(self.settingsFile)
-        placeholderName = self.settings['placeholderName']
+        self.settings = json.load(self.settingsFile) # load json data to dict
+        placeholderName = self.settings['placeholderName'] # Read by key
         self.pholderPath.setText(placeholderName)
-        print(self.settings)
+        self.settingsFile.close() # Close the file
+
         # Initialize controls
         self.scale.setValue(self.scaleFactor)
 
@@ -164,10 +165,12 @@ class Ui(QtWidgets.QMainWindow):
         adjustedPhoto = self.rawPhoto.transformed(transformation) # Apply the transformation to the sticker
         self.studentPhoto.setPixmap(adjustedPhoto)
 
+    # Save settings
     def saveSettings(self):
-         settingsFile = open('studentSticker.settings', 'w')
-         self.settings['placeholderName'] = self.pholderPath.text()
-         json.dump(self.settings, settingsFile)
+         settingsFile = open('studentSticker.settings', 'w') # Open json file for writing
+         self.settings['placeholderName'] = self.pholderPath.text() # Change value by key
+         json.dump(self.settings, settingsFile) # Write all settings back to file
+         settingsFile.close() # Close the file
 
 if __name__ == '__main__':
 
