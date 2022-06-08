@@ -160,8 +160,10 @@ class Ui(QtWidgets.QMainWindow):
         print(self.scaleFactor)
         transformation = QTransform() # Create transformation object
         scaleFactor = self.scaleFactor / 100
+
         transformation.scale(scaleFactor, scaleFactor) # Set the scale according to the scale factor
-        # TODO:Create shifting tools
+        # TODO:Create shifting tools 
+        # Can be done by using transformation.translate and setting label justification to top left
         adjustedPhoto = self.rawPhoto.transformed(transformation) # Apply the transformation to the sticker
         self.studentPhoto.setPixmap(adjustedPhoto)
 
