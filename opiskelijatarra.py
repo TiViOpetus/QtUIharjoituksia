@@ -3,7 +3,7 @@
 # Libraries and modules
 # ---------------------
 
-from PyQt5 import QtWidgets, uic, QtPrintSupport # UI elements, ui builder printing tools
+from PyQt5 import QtWidgets, uic, QtPrintSupport # UI elements, ui builder and printing tools
 from PyQt5.QtGui import QPainter, QTransform, QPixmap # For printing, scaling and showing pictures
 from PyQt5.QtCore import Qt # For pixmap scaling
 import json # To read and write settings ins JSON format
