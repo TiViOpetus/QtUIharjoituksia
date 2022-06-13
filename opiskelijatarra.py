@@ -165,7 +165,7 @@ class Ui(QtWidgets.QMainWindow):
         rawWidth = rawPictureSize.width()
         rawHeight = rawPictureSize.height()
 
-        # Cretate a scaled picture 20 to 100 % use smooth transormation
+        # Cretate a scaled picture 10 to 100 % and use smooth transormation
         self.scaleFactor = self.scale.value() 
         scaleFactor = self.scaleFactor / 100
         self.scaledPhoto = self.rawPhoto.scaled(rawWidth * scaleFactor, rawHeight * scaleFactor, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
