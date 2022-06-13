@@ -147,14 +147,14 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>60</y>
        <width>241</width>
-       <height>31</height>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Libre Barcode 128</family>
+       <family>Libre Barcode 128 Text</family>
        <pointsize>48</pointsize>
       </font>
      </property>
@@ -194,7 +194,7 @@
      <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
    </widget>
    <widget class="QSlider" name="moveHorizontalSlider">
@@ -210,7 +210,7 @@
      <number>240</number>
     </property>
     <property name="sliderPosition">
-     <number>120</number>
+     <number>0</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -232,7 +232,7 @@
      <number>320</number>
     </property>
     <property name="sliderPosition">
-     <number>160</number>
+     <number>0</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -294,7 +294,7 @@
      <item>
       <widget class="QDial" name="sizeDial">
        <property name="minimum">
-        <number>20</number>
+        <number>10</number>
        </property>
        <property name="maximum">
         <number>100</number>
@@ -405,8 +405,8 @@
      <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>373</x>
-     <y>482</y>
+     <x>374</x>
+     <y>476</y>
     </hint>
    </hints>
   </connection>

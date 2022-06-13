@@ -3,10 +3,10 @@
 # Libraries and modules
 # ---------------------
 
-from tkinter import W
 from PyQt5 import QtWidgets, uic, QtPrintSupport # UI elements, ui builder printing tools
 from PyQt5.QtGui import QPainter, QTransform, QPixmap # For printing, scaling and showing pictures
-import json
+from PyQt5.QtCore import Qt # For pixmap scaling
+import json # To read and write settings ins JSON format
 import os # For path processing
 import sys # For accessing system parameters
 import code128Bcode # For creating barcodes with Libre Code 128 font
@@ -30,8 +30,8 @@ class Ui(QtWidgets.QMainWindow):
         # Initial values
         self.rawPhoto = QPixmap('placeholder.png')
         self.scaleFactor = 100
-        self.horizShift = 120
-        self.vertShift = 160
+        self.horizShift = 0
+        self.vertShift = 0
 
         # CONTROLS
         self.firstNameInput = self.studentFirstNameLineEdit # Direct assignment
@@ -81,8 +81,10 @@ class Ui(QtWidgets.QMainWindow):
         # Signal when student number has been changed
         self.numberInput.textChanged.connect(self.updateBarcode)
 
-        # Signal when scale changes
+        # Signal when scale dial or move slider values have been changed
         self.scale.valueChanged.connect(self.updatePicture)
+        self.horizMove.valueChanged.connect(self.updatePicture)
+        self.vertMove.valueChanged.connect(self.updatePicture)
 
         # Save settings to json file
         self.saveSettingPushButton.clicked.connect(self.saveSettings)
@@ -143,6 +145,8 @@ class Ui(QtWidgets.QMainWindow):
             self.rawPhoto = QPixmap(fileName)
             self.studentPhoto.setPixmap(self.rawPhoto)
 
+        # TODO: Must set sliders and dials to their initial values
+
     # Concatenates first and last name and updates the sticker
     def createFullName(self):
         self.fullName = self.firstNameInput.text() + ' ' + self.lastNameInput.text()
@@ -153,19 +157,35 @@ class Ui(QtWidgets.QMainWindow):
         bcode = code128Bcode.string2barcode(self.numberInput.text())
         self.studentNumberOutput.setText(bcode)
 
-    # Resize and move the picture in the picture label
+    # Resize and move the picture in the picture label initial position is top left
     def updatePicture(self):
-        # Transform to fit the picture in the label
-        self.scaleFactor = self.scale.value()
-        print(self.scaleFactor)
-        transformation = QTransform() # Create transformation object
-        scaleFactor = self.scaleFactor / 100
 
-        transformation.scale(scaleFactor, scaleFactor) # Set the scale according to the scale factor
-        # TODO:Create shifting tools 
-        # Can be done by using transformation.translate and setting label justification to top left
-        adjustedPhoto = self.rawPhoto.transformed(transformation) # Apply the transformation to the sticker
-        self.studentPhoto.setPixmap(adjustedPhoto)
+        # Get the original picture size with QPixmap methods
+        rawPictureSize = self.rawPhoto.size()
+        rawWidth = rawPictureSize.width()
+        rawHeight = rawPictureSize.height()
+
+        # Cretate a scaled picture 20 to 100 % use smooth transormation
+        self.scaleFactor = self.scale.value() 
+        scaleFactor = self.scaleFactor / 100
+        self.scaledPhoto = self.rawPhoto.scaled(rawWidth * scaleFactor, rawHeight * scaleFactor, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
+        
+        # Measure the size of the scaled picture
+        scaledPictureSize =self.scaledPhoto.size()
+        scaledWidth = scaledPictureSize.width()
+        scaledHeight = scaledPictureSize.height()
+
+        # Set maximum values for sliders moving the picture
+        self.horizMove.setMaximum(scaledWidth - 1)
+        self.vertMove.setMaximum(scaledHeight - 1)
+
+        # Read slider values and move the picture in the lablel accordingly by creting a copy
+        hmstart = self.horizMove.value()
+        vmstart = self.vertMove.value()
+        finalPhoto = self.scaledPhoto.copy(hmstart, vmstart, scaledWidth - hmstart, scaledHeight -vmstart)
+        self.studentPhoto.setPixmap(finalPhoto)
+        
+        # TODO: Update pictureSizeLabel to show final dimensions
 
     # Save settings
     def saveSettings(self):
