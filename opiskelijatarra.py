@@ -61,11 +61,15 @@ class Ui(QtWidgets.QMainWindow):
         self.studentNumberOutput.setText('')
         self.studentPhoto = self.pictureLabel
         self.scaleIndicator = self.scaleValueLabel
+        self.dimensions = self.pictureSizeLabel
 
         # Initalize indicators
-        self.scaleIndicator.setText(str(self.scaleFactor))
-        # TODO: Disable print button until all fields are populated
-
+        self.scaleIndicator.setText(str(self.scaleFactor) + '%')
+        self.dimensions.setText('')
+        
+        # Disable print button until all fields are populated
+        self.printPushButton.setEnabled(False)
+        
         # SIGNALS
 
         # Print the sticker
@@ -151,17 +155,19 @@ class Ui(QtWidgets.QMainWindow):
     def createFullName(self):
         self.fullName = self.firstNameInput.text() + ' ' + self.lastNameInput.text()
         self.nameOutput.setText(self.fullName)
+        self.checkData()
 
     # Creates a barcode from the student number
     def updateBarcode(self):
         bcode = code128Bcode.string2barcode(self.numberInput.text())
         self.studentNumberOutput.setText(bcode)
+        self.checkData()
 
     # Resize and move the picture in the picture label initial position is top left
     def updatePicture(self):
 
         # Get the original picture size with QPixmap methods
-        rawPictureSize = self.rawPhoto.size()
+        rawPictureSize = self.rawPhoto.size() # Returns an object with 2 methods to fing dimensions
         rawWidth = rawPictureSize.width()
         rawHeight = rawPictureSize.height()
 
@@ -171,7 +177,7 @@ class Ui(QtWidgets.QMainWindow):
         self.scaledPhoto = self.rawPhoto.scaled(rawWidth * scaleFactor, rawHeight * scaleFactor, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
         
         # Measure the size of the scaled picture
-        scaledPictureSize =self.scaledPhoto.size()
+        scaledPictureSize =self.scaledPhoto.size() # Returns an object with 2 methods to fing dimensions
         scaledWidth = scaledPictureSize.width()
         scaledHeight = scaledPictureSize.height()
 
@@ -179,13 +185,28 @@ class Ui(QtWidgets.QMainWindow):
         self.horizMove.setMaximum(scaledWidth - 1)
         self.vertMove.setMaximum(scaledHeight - 1)
 
-        # Read slider values and move the picture in the lablel accordingly by creting a copy
+        # Read slider values and move the picture in the lablel accordingly by creating a copy
         hmstart = self.horizMove.value()
         vmstart = self.vertMove.value()
         finalPhoto = self.scaledPhoto.copy(hmstart, vmstart, scaledWidth - hmstart, scaledHeight -vmstart)
         self.studentPhoto.setPixmap(finalPhoto)
+
+        # Show dimensions of the scaled image in the label
+        dimensionsText = str(scaledWidth) + ' x ' + str(scaledHeight)
+        self.dimensions.setText(dimensionsText)
+
+    # Chechk if name fields and student number field are populated -> enable print button
+    def checkData(self):
+        fnameLength = len(self.firstNameInput.text())
+        lnameLength = len(self.lastNameInput.text())
+        numberLength = len(self.numberInput.text())
+        allPopulated = fnameLength * lnameLength * numberLength
+        if allPopulated > 0:
+            self.printPushButton.setEnabled(True)
+        else:
+            self.printPushButton.setEnabled(False)
         
-        # TODO: Update pictureSizeLabel to show final dimensions
+        
 
     # Save settings
     def saveSettings(self):
