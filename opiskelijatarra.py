@@ -28,7 +28,7 @@ class Ui(QtWidgets.QMainWindow):
         # Settings
 
         # Initial values
-        self.rawPhoto = QPixmap('placeholder.png')
+        
         self.scaleFactor = 100
         self.horizShift = 0
         self.vertShift = 0
@@ -50,7 +50,8 @@ class Ui(QtWidgets.QMainWindow):
         placeholderName = self.settings['placeholderName'] # Read by key
         self.pholderPath.setText(placeholderName)
         self.settingsFile.close() # Close the file
-
+        self.rawPhoto = QPixmap(placeholderName)
+       
         # Initialize controls
         self.scale.setValue(self.scaleFactor)
 
@@ -66,7 +67,8 @@ class Ui(QtWidgets.QMainWindow):
         # Initalize indicators
         self.scaleIndicator.setText(str(self.scaleFactor) + '%')
         self.dimensions.setText('')
-        
+        self.studentPhoto.setPixmap(self.rawPhoto)
+
         # Disable print button until all fields are populated
         self.printPushButton.setEnabled(False)
         
@@ -149,7 +151,10 @@ class Ui(QtWidgets.QMainWindow):
             self.rawPhoto = QPixmap(fileName)
             self.studentPhoto.setPixmap(self.rawPhoto)
 
-        # TODO: Must set sliders and dials to their initial values
+            # Set sliders and dials to their initial values
+            self.horizMove.setValue(0)
+            self.vertMove.setValue(0)
+
 
     # Concatenates first and last name and updates the sticker
     def createFullName(self):
@@ -174,7 +179,9 @@ class Ui(QtWidgets.QMainWindow):
         # Cretate a scaled picture 10 to 100 % and use smooth transormation
         self.scaleFactor = self.scale.value() 
         scaleFactor = self.scaleFactor / 100
-        self.scaledPhoto = self.rawPhoto.scaled(rawWidth * scaleFactor, rawHeight * scaleFactor, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
+        adjustedWidth = int(rawWidth * scaleFactor )
+        adjustedHeight = int(rawHeight * scaleFactor)
+        self.scaledPhoto = self.rawPhoto.scaled(adjustedWidth, adjustedHeight, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
         
         # Measure the size of the scaled picture
         scaledPictureSize =self.scaledPhoto.size() # Returns an object with 2 methods to fing dimensions
