@@ -178,18 +178,18 @@ class Ui(QtWidgets.QMainWindow):
 
         # Cretate a scaled picture 10 to 100 % and use smooth transormation
         self.scaleFactor = self.scale.value() 
-        scaleFactor = self.scaleFactor / 100
-        adjustedWidth = int(rawWidth * scaleFactor )
+        scaleFactor = self.scaleFactor / 100 # From percentages to multiplier 
+        adjustedWidth = int(rawWidth * scaleFactor ) # Scaled method will use integers
         adjustedHeight = int(rawHeight * scaleFactor)
         self.scaledPhoto = self.rawPhoto.scaled(adjustedWidth, adjustedHeight, Qt.AspectRatioMode.IgnoreAspectRatio ,Qt.TransformationMode.SmoothTransformation)
         
         # Measure the size of the scaled picture
         scaledPictureSize =self.scaledPhoto.size() # Returns an object with 2 methods to fing dimensions
-        scaledWidth = scaledPictureSize.width()
-        scaledHeight = scaledPictureSize.height()
+        scaledWidth = scaledPictureSize.width() # Get width
+        scaledHeight = scaledPictureSize.height() # Get height
 
         # Set maximum values for sliders moving the picture
-        self.horizMove.setMaximum(scaledWidth - 1)
+        self.horizMove.setMaximum(scaledWidth - 1) # Minus 1 prevent jumping back to left
         self.vertMove.setMaximum(scaledHeight - 1)
 
         # Read slider values and move the picture in the lablel accordingly by creating a copy
@@ -204,10 +204,12 @@ class Ui(QtWidgets.QMainWindow):
 
     # Chechk if name fields and student number field are populated -> enable print button
     def checkData(self):
-        fnameLength = len(self.firstNameInput.text())
+        fnameLength = len(self.firstNameInput.text()) # Calculate lengt of the string in the field
         lnameLength = len(self.lastNameInput.text())
         numberLength = len(self.numberInput.text())
-        allPopulated = fnameLength * lnameLength * numberLength
+        allPopulated = fnameLength * lnameLength * numberLength # Multiply lenghts with each other
+
+        # If any of fields is empy allPopulated value is 0
         if allPopulated > 0:
             self.printPushButton.setEnabled(True)
         else:
