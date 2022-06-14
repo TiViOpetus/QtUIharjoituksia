@@ -177,7 +177,8 @@ class Ui(QtWidgets.QMainWindow):
         rawHeight = rawPictureSize.height()
 
         # Cretate a scaled picture 10 to 100 % and use smooth transormation
-        self.scaleFactor = self.scale.value() 
+        self.scaleFactor = self.scale.value()
+        self.scaleIndicator.setText(str(self.scaleFactor) + '%') # Update scale label
         scaleFactor = self.scaleFactor / 100 # From percentages to multiplier 
         adjustedWidth = int(rawWidth * scaleFactor ) # Scaled method will use integers
         adjustedHeight = int(rawHeight * scaleFactor)
@@ -223,6 +224,11 @@ class Ui(QtWidgets.QMainWindow):
          self.settings['placeholderName'] = self.pholderPath.text() # Change value by key
          json.dump(self.settings, settingsFile) # Write all settings back to file
          settingsFile.close() # Close the file
+
+         # Upadate the placeholder picture in the UI
+         placeHolderName = self.pholderPath.text()
+         self.rawPhoto = QPixmap(placeHolderName)
+         self.studentPhoto.setPixmap(self.rawPhoto)
 
 if __name__ == '__main__':
 
