@@ -7,6 +7,7 @@ Käyttöliittymässä on kentät opiskelijan nimen ja opiskelijanumeron syöttä
 
 Sovellus koostuu useammasta tiedostosta ja se hyödyntää QT5:n Python kirjastoja. Pääohjelma on `opiskelijatarra.py` ja sen käyttöliittymä on määritelty tiedostossa `opiskelijatarra.ui`. Sovellus tarvitsee toimiakseen joitakin Pythonin sisäänrakennettuja kirjastoja sekä erillisen modulin `code128Bcode.py`, jonka avulla muodostetaan viivakoodit. Viivakoodit käyttävät `Libre Code 128` viivakoodifonttia, joka on asennetava tietokoneeseen, jotta tarrat tulostuisivat halutulla tavalla.
 
-Harjoituksessa luodaan jakelupaketti ja asennusohjelma sovellukselle. Jakelu luodaan `PyInstaller`-ohjelman avulla. Osa sovelluksen käyttämistä tiedostoista on määriteltävä `spec`-tiedostoon, jotta jakeluun saadaan kaikki sovelluksen tarvitsemat tiedostot. Sovelluksen käyttämät tiedostot ilmenevät seuraavasta kaaviosta:
+Harjoituksessa luodaan jakelupaketti ja asennusohjelma sovellukselle. Jakelu luodaan `PyInstaller`-ohjelman avulla. Osa sovelluksen käyttämistä tiedostoista on määriteltävä `spec`-tiedostoon, jotta jakeluun saadaan kaikki sovelluksen tarvitsemat tiedostot. Sovelluksen käyttämät kirjastot, modulit ja muut tiedostot ilmenevät seuraavasta kaaviosta:
+
 
 ![Modulikaavio drawio](https://user-images.githubusercontent.com/24242044/173565805-f2753b71-478e-41c9-af56-f56eb65d0568.png)
