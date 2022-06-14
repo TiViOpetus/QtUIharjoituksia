@@ -5,6 +5,6 @@ Työpöytäsovellusten luominen QT Designer -ohjelmalla ja Python-kielellä. Har
 
 Käyttöliittymässä on kentät opiskelijan nimen ja opiskelijanumeron syöttämistä varten. Näiden tietojen perusteella muodostetaan tulostettava opsikelijatarra, jossa opiskelijanumero on viivakoodina. Sovellukseen voidaan ladata opiskelijan kuva. Sen skaalausta voidaan muuttaa ja muuttaa kuvasta näkyvää aluetta liukusäätimien avulla. Ohjelman asetuksissa voidaan määritellä paikkamerkkikuva, jota käytetään. Sovelluksen mukana tulee 2 kuvaa: `placeholder.png` ja `placeholder2.jpg`.
 
-Sovellus koostuu useammasta tiedostosta ja se hyödyntää QT5:n Python kirjastoja
+Sovellus koostuu useammasta tiedostosta ja se hyödyntää QT5:n Python kirjastoja. Pääohjelma on `opiskelijatarra.py` ja sen käyttöliittymä on määritelty tiedostossa `opiskelijatarra.ui`. Sovellus tarvitsee toimiakseen joitakin Pythonin sisäänrakennettuja kirjastoja sekä erillisen modulin `code128Bcode.py`, jonka avulla muodostetaan viivakoodit. Viivakoodit käyttävät `Libre Code 128` viivakoodifonttia, joka on asennetava tietokoneeseen, jotta tarrat tulostuisivat halutulla tavalla.
 
 ![Modulikaavio drawio](https://user-images.githubusercontent.com/24242044/173565805-f2753b71-478e-41c9-af56-f56eb65d0568.png)
